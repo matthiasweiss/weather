@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: Weather API
+  version: '0.0.1'
+servers:
+  - url: https://weather.react/
+tags:
+  - name: Weather
+    description: Everything relevant to weather data
+paths:
+  /weather/{date}:
+    get:
+      tags:
+        - Weather
+      summary: Get the weather for a specific date
+      operationId: getWeather
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/weather'
+        422:
+          description: Invalid date ISO
+components:
+  schemas:
+    weather:
+      type: object
+      required:
+        - summary
+        - temperature
+        - wind
+      properties:
+        summary:
+          type: string
+          enum:
+            - sunny
+            - cloudy
+            - rainy
+            - snowy
+        temperature:
+          type: number
+          example: 20
+          description: Temperature in celsius
+        windSpeed:
+          type: number
+          example: 12
+          description: Wind speed in km/h
+  parameters:
+    date:
+      name: date
+      required: true
+      in: path
+      description: ISO date
+      schema:
+        type: string
