@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/weather"
@@ -54,7 +56,9 @@
     },
     "test": {
       "executor": "@nrwl/vite:test",
-      "outputs": ["coverage/weather"],
+      "outputs": [
+        "coverage/weather"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "coverage/weather"
@@ -62,15 +66,28 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["./src/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "./src/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "serve-static": {
       "executor": "@nrwl/web:file-server",
       "options": {
         "buildTarget": "weather:build"
+      }
+    },
+    "component-test": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "cypress.config.ts",
+        "testingType": "component",
+        "devServerTarget": "weather:build",
+        "skipServe": true
       }
     }
   },
